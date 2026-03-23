@@ -9,15 +9,14 @@ export const statusColors: Record<AgentStatus, string> = {
 };
 
 export const statusLabels: Record<AgentStatus, string> = {
-  available: "Available",
-  "on-call": "On Call",
-  "after-call-work": "After Call Work",
+  available: "Ledig",
+  "on-call": "I opkald",
+  "after-call-work": "Efterbehandling",
   offline: "Offline",
-  break: "Break",
+  break: "Pause",
 };
 
 export function statusDotSvg(status: AgentStatus): string {
   const color = statusColors[status];
-  const label = statusLabels[status];
-  return `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><title>${label}</title><circle cx="6" cy="6" r="5" fill="${color}" /><circle cx="6" cy="6" r="5" fill="${color}" opacity="0.3"><animate attributeName="r" values="5;6;5" dur="2s" repeatCount="indefinite" /></circle></svg>`;
+  return `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="${color}" /><circle cx="6" cy="6" r="5" fill="${color}" opacity="0.3"><animate attributeName="r" values="5;6;5" dur="2s" repeatCount="indefinite" /></circle></svg>`;
 }

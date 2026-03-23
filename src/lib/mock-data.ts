@@ -1,25 +1,25 @@
 import type { Agent, AgentStatus, DashboardSnapshot, Kpi } from "~/types/dashboard";
 
 const FIRST_NAMES = [
-  "Emma", "Liam", "Olivia", "Noah", "Ava",
-  "Elijah", "Sophia", "James", "Isabella", "Lucas",
-  "Mia", "Mason", "Charlotte", "Ethan", "Amelia",
-  "Logan", "Harper", "Aiden", "Evelyn", "Jackson",
-  "Luna", "Sebastian", "Ella", "Mateo", "Scarlett",
-  "Henry", "Grace", "Owen", "Chloe", "Daniel",
-  "Aria", "Alexander", "Penelope", "Michael", "Layla",
-  "Benjamin", "Riley", "William", "Zoey", "Leo",
+  "Emma", "Liam", "Freja", "Noah", "Ida",
+  "Oliver", "Sofia", "Oscar", "Clara", "Lucas",
+  "Alma", "Magnus", "Ella", "Frederik", "Anna",
+  "Emil", "Karla", "Aksel", "Astrid", "Mikkel",
+  "Luna", "Sebastian", "Nora", "Mathias", "Maja",
+  "Henrik", "Laura", "Rasmus", "Josefine", "Anders",
+  "Sigrid", "Alexander", "Olivia", "Christian", "Lærke",
+  "Nikolaj", "Viktoria", "Mads", "Mathilde", "Leo",
 ];
 
 const LAST_NAMES = [
-  "Smith", "Johnson", "Williams", "Brown", "Jones",
-  "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
-  "Anderson", "Taylor", "Thomas", "Moore", "Jackson",
-  "Martin", "Lee", "Perez", "Thompson", "White",
-  "Harris", "Sanchez", "Clark", "Ramirez", "Lewis",
-  "Robinson", "Walker", "Young", "Allen", "King",
-  "Wright", "Scott", "Torres", "Nguyen", "Hill",
-  "Flores", "Green", "Adams", "Nelson", "Baker",
+  "Jensen", "Nielsen", "Hansen", "Pedersen", "Andersen",
+  "Christensen", "Larsen", "Sørensen", "Rasmussen", "Jørgensen",
+  "Petersen", "Madsen", "Kristensen", "Olsen", "Thomsen",
+  "Christiansen", "Poulsen", "Johansen", "Møller", "Mortensen",
+  "Knudsen", "Jakobsen", "Henriksen", "Lund", "Nissen",
+  "Eriksen", "Holm", "Kjær", "Berg", "Friis",
+  "Dahl", "Bruun", "Bak", "Schmidt", "Winther",
+  "Vestergaard", "Clausen", "Østergaard", "Nørgaard", "Laursen",
 ];
 
 const STATUSES: AgentStatus[] = [
