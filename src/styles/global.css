@@ -1,25 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface: #ffffff;
-  --color-surface-alt: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-accent: #3b82f6;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
 
-  --color-status-available: #22c55e;
-  --color-status-on-call: #3b82f6;
-  --color-status-after-call-work: #f59e0b;
-  --color-status-offline: #9ca3af;
-  --color-status-break: #f97316;
+  --color-surface: #fefefe;
+  --color-surface-alt: #f5f4f0;
+  --color-border: #ededf0;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #86868b;
+  --color-accent: #007aff;
+  --color-service-green: #34c759;
+
+  --color-status-available: #34c759;
+  --color-status-on-call: #5856d6;
+  --color-status-after-call-work: #ff9f0a;
+  --color-status-offline: #8e8e93;
+  --color-status-break: #ff6b6b;
 }
 
 @keyframes kpi-flash-anim {
-  0% { background-color: rgb(59 130 246 / 0.1); }
+  0% { background-color: oklch(0.95 0.02 250 / 0.12); }
   100% { background-color: transparent; }
 }
 
 @utility kpi-flash {
-  animation: kpi-flash-anim 0.6s ease-out;
+  animation: kpi-flash-anim 0.8s ease-out;
 }
