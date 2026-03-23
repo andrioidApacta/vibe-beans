@@ -10,11 +10,15 @@ const formatters: Record<string, (kpi: Kpi) => string> = {
   abandonRatePercent: (kpi) => `${kpi.abandonRatePercent}%`,
 };
 
-function flashElement(el: Element) {
-  el.classList.remove("kpi-flash");
-  // Force reflow so re-adding the class triggers the animation
-  void (el as HTMLElement).offsetWidth;
-  el.classList.add("kpi-flash");
+function flashCard(textEl: Element) {
+  const group = textEl.closest("g[data-kpi-card]");
+  const rect = group?.querySelector("rect");
+  if (!rect) return;
+
+  rect.classList.remove("kpi-flash");
+  requestAnimationFrame(() => {
+    rect.classList.add("kpi-flash");
+  });
 }
 
 export function initKpiUpdater() {
@@ -30,7 +34,7 @@ export function initKpiUpdater() {
       const newValue = format(kpi);
       if (el.textContent !== newValue) {
         el.textContent = newValue;
-        flashElement(el);
+        flashCard(el);
       }
     }
   }) as EventListener);

@@ -16,10 +16,23 @@
 }
 
 @keyframes kpi-flash-anim {
-  0% { background-color: rgb(59 130 246 / 0.1); }
-  100% { background-color: transparent; }
+  0% { fill: rgb(59 130 246 / 0.1); }
+  100% { fill: var(--color-surface); }
 }
 
 @utility kpi-flash {
   animation: kpi-flash-anim 0.6s ease-out;
+}
+
+g[data-agent-row] > rect {
+  transition: fill 0.15s ease;
+}
+
+g[data-agent-row]:hover > rect {
+  fill: var(--color-surface-alt);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kpi-flash { animation: none; }
+  animate { display: none; }
 }
