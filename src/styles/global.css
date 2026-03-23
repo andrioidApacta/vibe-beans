@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+
+  --color-status-available: #22c55e;
+  --color-status-on-call: #3b82f6;
+  --color-status-after-call-work: #f59e0b;
+  --color-status-offline: #9ca3af;
+  --color-status-break: #f97316;
+}
+
+@keyframes kpi-flash-anim {
+  0% { background-color: rgb(59 130 246 / 0.1); }
+  100% { background-color: transparent; }
+}
+
+@utility kpi-flash {
+  animation: kpi-flash-anim 0.6s ease-out;
+}
