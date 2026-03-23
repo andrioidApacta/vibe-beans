@@ -1,5 +1,6 @@
 import type { DashboardSnapshot, Kpi } from "~/types/dashboard";
 import { formatTime } from "~/lib/format";
+import { RING_CIRCUMFERENCE } from "~/lib/svg";
 
 const formatters: Record<string, (kpi: Kpi) => string> = {
   totalCallsToday: (kpi) => String(kpi.totalCallsToday),
@@ -12,9 +13,16 @@ const formatters: Record<string, (kpi: Kpi) => string> = {
 
 function flashElement(el: Element) {
   el.classList.remove("kpi-flash");
-  // Force reflow so re-adding the class triggers the animation
   void (el as HTMLElement).offsetWidth;
   el.classList.add("kpi-flash");
+}
+
+function updateRing(percent: number) {
+  const ring = document.querySelector("[data-ring-progress]");
+  if (!ring) return;
+
+  const offset = RING_CIRCUMFERENCE * (1 - percent / 100);
+  ring.setAttribute("stroke-dashoffset", offset.toFixed(2));
 }
 
 export function initKpiUpdater() {
@@ -33,5 +41,7 @@ export function initKpiUpdater() {
         flashElement(el);
       }
     }
+
+    updateRing(kpi.serviceLevelPercent);
   }) as EventListener);
 }

@@ -22,16 +22,16 @@ function renderPage(page: number) {
   tbody.innerHTML = pageAgents
     .map(
       (agent) => `
-    <tr class="border-b border-border last:border-b-0 hover:bg-surface-alt transition-colors" data-agent-id="${agent.id}">
-      <td class="px-5 py-3 font-medium">${escapeHtml(agent.name)}</td>
-      <td class="px-5 py-3">
+    <tr class="border-t border-border" data-agent-id="${agent.id}">
+      <td class="px-6 py-4 font-medium">${escapeHtml(agent.name)}</td>
+      <td class="px-6 py-4">
         <span class="inline-flex items-center gap-2">
           ${statusDotSvg(agent.status)}
           ${statusLabels[agent.status]}
         </span>
       </td>
-      <td class="px-5 py-3 text-right tabular-nums">${agent.callsToday}</td>
-      <td class="px-5 py-3 text-right tabular-nums">${formatTime(agent.handleTimeSeconds)}</td>
+      <td class="px-6 py-4 text-right tabular-nums">${agent.callsToday}</td>
+      <td class="px-6 py-4 text-right tabular-nums">${formatTime(agent.handleTimeSeconds)}</td>
     </tr>`,
     )
     .join("");
@@ -56,7 +56,7 @@ function updatePageDots(activePage: number) {
   const pages = totalPages();
   container.innerHTML = Array.from({ length: pages }, (_, i) => {
     const active = i === activePage;
-    return `<button class="w-2 h-2 rounded-full transition-colors ${active ? "bg-accent" : "bg-border"}" data-page="${i}" aria-label="Gå til side ${i + 1}"></button>`;
+    return `<button class="w-2.5 h-2.5 rounded-full transition-colors ${active ? "bg-accent" : "bg-border"}" data-page="${i}" aria-label="Gå til side ${i + 1}"></button>`;
   }).join("");
 }
 
