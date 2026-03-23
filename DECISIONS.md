@@ -6,3 +6,4 @@
 - 2026-03-23 — Zod schemas as single source of truth for data shapes. TypeScript types inferred from schemas.
 - 2026-03-23 — SVG status indicators as pure string functions, shared between server render and client DOM updates.
 - 2026-03-23 — Server-rendered initial state to avoid empty-dashboard flash on first load.
+- 2026-03-23 — aos@apacta.com — Dashboard localised to Danish (da). All UI labels, status strings, mock agent names, and HTML lang attribute updated.
