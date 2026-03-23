@@ -19,7 +19,7 @@ function updateConnectionStatus(connected: boolean) {
   }
   const label = el.querySelector("[data-status-label]");
   if (label) {
-    label.textContent = connected ? "Connected" : "Disconnected";
+    label.textContent = connected ? "Forbundet" : "Afbrudt";
   }
 }
 

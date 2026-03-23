@@ -11,70 +11,70 @@ const totalPages = Math.ceil(snapshot.agents.length / pageSize);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="da">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Call Center Dashboard</title>
+    <title>Callcenter Dashboard</title>
   </head>
   <body class="bg-surface-alt text-text-primary min-h-screen" data-ws-url="/ws">
     <header class="bg-surface border-b border-border px-6 py-4">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <h1 class="text-xl font-semibold tracking-tight">Call Center Dashboard</h1>
+        <h1 class="text-xl font-semibold tracking-tight">Callcenter Dashboard</h1>
         <div class="flex items-center gap-2 text-sm text-text-secondary">
           <span id="connection-status" class="inline-flex items-center gap-1.5">
             <span data-status-dot class="w-2 h-2 rounded-full bg-status-offline"></span>
-            <span data-status-label>Connecting…</span>
+            <span data-status-label>Forbinder…</span>
           </span>
         </div>
       </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-6 space-y-6">
-      <section aria-label="Key Performance Indicators">
+      <section aria-label="Nøgletal">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Total Calls</p>
+            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Opkald i alt</p>
             <p class="text-2xl font-bold mt-1" data-kpi="totalCallsToday">{snapshot.kpi.totalCallsToday}</p>
           </div>
           <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Avg Handle Time</p>
+            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Gns. behandlingstid</p>
             <p class="text-2xl font-bold mt-1" data-kpi="avgHandleTimeSeconds">{formatTime(snapshot.kpi.avgHandleTimeSeconds)}</p>
           </div>
           <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Avg Wait Time</p>
+            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Gns. ventetid</p>
             <p class="text-2xl font-bold mt-1" data-kpi="avgWaitTimeSeconds">{formatTime(snapshot.kpi.avgWaitTimeSeconds)}</p>
           </div>
           <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Service Level</p>
+            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Serviceniveau</p>
             <p class="text-2xl font-bold mt-1" data-kpi="serviceLevelPercent">{snapshot.kpi.serviceLevelPercent}%</p>
           </div>
           <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Calls in Queue</p>
+            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Opkald i kø</p>
             <p class="text-2xl font-bold mt-1" data-kpi="callsInQueue">{snapshot.kpi.callsInQueue}</p>
           </div>
           <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Abandon Rate</p>
+            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Opgivelsesrate</p>
             <p class="text-2xl font-bold mt-1" data-kpi="abandonRatePercent">{snapshot.kpi.abandonRatePercent}%</p>
           </div>
         </div>
       </section>
 
-      <section aria-label="Agent Status" class="bg-surface rounded-xl border border-border">
+      <section aria-label="Agentstatus" class="bg-surface rounded-xl border border-border">
         <div class="px-5 py-4 border-b border-border flex items-center justify-between">
-          <h2 class="text-base font-semibold">Agent Status</h2>
+          <h2 class="text-base font-semibold">Agentstatus</h2>
           <span id="page-indicator" class="text-sm text-text-secondary">
-            Page 1 of {totalPages}
+            Side 1 af {totalPages}
           </span>
         </div>
         <div class="overflow-x-auto">
-          <table class="w-full text-sm" aria-label="Agent status table">
+          <table class="w-full text-sm" aria-label="Agentstatus tabel">
             <thead>
               <tr class="border-b border-border text-left text-text-secondary">
                 <th class="px-5 py-3 font-medium">Agent</th>
                 <th class="px-5 py-3 font-medium">Status</th>
-                <th class="px-5 py-3 font-medium text-right">Calls Today</th>
-                <th class="px-5 py-3 font-medium text-right">Avg Handle Time</th>
+                <th class="px-5 py-3 font-medium text-right">Opkald i dag</th>
+                <th class="px-5 py-3 font-medium text-right">Gns. behandlingstid</th>
               </tr>
             </thead>
             <tbody id="agent-tbody">
@@ -95,13 +95,13 @@ const totalPages = Math.ceil(snapshot.agents.length / pageSize);
           </table>
         </div>
         <div class="px-5 py-3 border-t border-border flex items-center justify-between text-sm text-text-secondary">
-          <span id="agent-count">{snapshot.agents.length} agents total</span>
+          <span id="agent-count">{snapshot.agents.length} agenter i alt</span>
           <div class="flex gap-1" id="page-dots">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 class={`w-2 h-2 rounded-full transition-colors ${i === 0 ? "bg-accent" : "bg-border"}`}
                 data-page={i}
-                aria-label={`Go to page ${i + 1}`}
+                aria-label={`Gå til side ${i + 1}`}
               />
             ))}
           </div>

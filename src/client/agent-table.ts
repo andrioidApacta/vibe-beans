@@ -38,12 +38,12 @@ function renderPage(page: number) {
 
   const pageIndicator = document.getElementById("page-indicator");
   if (pageIndicator) {
-    pageIndicator.textContent = `Page ${page + 1} of ${totalPages()}`;
+    pageIndicator.textContent = `Side ${page + 1} af ${totalPages()}`;
   }
 
   const agentCount = document.getElementById("agent-count");
   if (agentCount) {
-    agentCount.textContent = `${lastAgents.length} agents total`;
+    agentCount.textContent = `${lastAgents.length} agenter i alt`;
   }
 
   updatePageDots(page);
@@ -56,7 +56,7 @@ function updatePageDots(activePage: number) {
   const pages = totalPages();
   container.innerHTML = Array.from({ length: pages }, (_, i) => {
     const active = i === activePage;
-    return `<button class="w-2 h-2 rounded-full transition-colors ${active ? "bg-accent" : "bg-border"}" data-page="${i}" aria-label="Go to page ${i + 1}"></button>`;
+    return `<button class="w-2 h-2 rounded-full transition-colors ${active ? "bg-accent" : "bg-border"}" data-page="${i}" aria-label="Gå til side ${i + 1}"></button>`;
   }).join("");
 }
 

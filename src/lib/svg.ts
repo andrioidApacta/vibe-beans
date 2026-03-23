@@ -9,11 +9,11 @@ export const statusColors: Record<AgentStatus, string> = {
 };
 
 export const statusLabels: Record<AgentStatus, string> = {
-  available: "Available",
-  "on-call": "On Call",
-  "after-call-work": "After Call Work",
+  available: "Ledig",
+  "on-call": "I opkald",
+  "after-call-work": "Efterbehandling",
   offline: "Offline",
-  break: "Break",
+  break: "Pause",
 };
 
 export function statusDotSvg(status: AgentStatus): string {
