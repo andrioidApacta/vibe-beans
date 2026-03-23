@@ -1,6 +1,5 @@
 import type { Agent, DashboardSnapshot } from "~/types/dashboard";
-import { statusDotSvg, statusLabels } from "~/lib/svg";
-import { formatTime, escapeHtml } from "~/lib/format";
+import { agentRowSvg, paginationDotsSvg, LAYOUT } from "~/lib/svg";
 
 const PAGE_SIZE = 10;
 const PAGINATION_INTERVAL_MS = 30_000;
@@ -12,28 +11,24 @@ function totalPages(): number {
   return Math.max(1, Math.ceil(lastAgents.length / PAGE_SIZE));
 }
 
+function firstRowY(): number {
+  return LAYOUT.table.y + LAYOUT.table.titleBarHeight + LAYOUT.table.headerHeight;
+}
+
+function footerY(): number {
+  return firstRowY() + PAGE_SIZE * LAYOUT.table.rowHeight;
+}
+
 function renderPage(page: number) {
-  const tbody = document.getElementById("agent-tbody");
+  const tbody = document.getElementById("agent-table-body");
   if (!tbody) return;
 
   const start = page * PAGE_SIZE;
   const pageAgents = lastAgents.slice(start, start + PAGE_SIZE);
+  const rowStartY = firstRowY();
 
   tbody.innerHTML = pageAgents
-    .map(
-      (agent) => `
-    <tr class="border-b border-border last:border-b-0 hover:bg-surface-alt transition-colors" data-agent-id="${agent.id}">
-      <td class="px-5 py-3 font-medium">${escapeHtml(agent.name)}</td>
-      <td class="px-5 py-3">
-        <span class="inline-flex items-center gap-2">
-          ${statusDotSvg(agent.status)}
-          ${statusLabels[agent.status]}
-        </span>
-      </td>
-      <td class="px-5 py-3 text-right tabular-nums">${agent.callsToday}</td>
-      <td class="px-5 py-3 text-right tabular-nums">${formatTime(agent.handleTimeSeconds)}</td>
-    </tr>`,
-    )
+    .map((agent, i) => agentRowSvg(agent, rowStartY + i * LAYOUT.table.rowHeight))
     .join("");
 
   const pageIndicator = document.getElementById("page-indicator");
@@ -54,15 +49,15 @@ function updatePageDots(activePage: number) {
   if (!container) return;
 
   const pages = totalPages();
-  container.innerHTML = Array.from({ length: pages }, (_, i) => {
-    const active = i === activePage;
-    return `<button class="w-2 h-2 rounded-full transition-colors ${active ? "bg-accent" : "bg-border"}" data-page="${i}" aria-label="Go to page ${i + 1}"></button>`;
-  }).join("");
+  const paginationBaseX = LAYOUT.width - LAYOUT.margin - pages * 12;
+  const cy = footerY() + LAYOUT.table.footerHeight / 2;
+
+  container.innerHTML = paginationDotsSvg(pages, activePage, paginationBaseX, cy);
 }
 
 function handlePageDotClick(event: Event) {
-  const target = event.target as HTMLElement;
-  const page = target.dataset.page;
+  const target = event.target as SVGElement;
+  const page = target.dataset?.page;
   if (page === undefined) return;
 
   currentPage = parseInt(page, 10);

@@ -1,13 +1,11 @@
 ---
 import "~/styles/global.css";
 import { generateDashboardSnapshot } from "~/lib/mock-data";
-import { statusDotSvg, statusLabels } from "~/lib/svg";
-import { formatTime } from "~/lib/format";
+import { dashboardSvg, LAYOUT } from "~/lib/svg";
 
 const snapshot = generateDashboardSnapshot();
 const pageSize = 10;
-const initialAgents = snapshot.agents.slice(0, pageSize);
-const totalPages = Math.ceil(snapshot.agents.length / pageSize);
+const svgContent = dashboardSvg(snapshot, pageSize);
 ---
 
 <!doctype html>
@@ -30,83 +28,20 @@ const totalPages = Math.ceil(snapshot.agents.length / pageSize);
       </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-6 space-y-6">
-      <section aria-label="Key Performance Indicators">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Total Calls</p>
-            <p class="text-2xl font-bold mt-1" data-kpi="totalCallsToday">{snapshot.kpi.totalCallsToday}</p>
-          </div>
-          <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Avg Handle Time</p>
-            <p class="text-2xl font-bold mt-1" data-kpi="avgHandleTimeSeconds">{formatTime(snapshot.kpi.avgHandleTimeSeconds)}</p>
-          </div>
-          <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Avg Wait Time</p>
-            <p class="text-2xl font-bold mt-1" data-kpi="avgWaitTimeSeconds">{formatTime(snapshot.kpi.avgWaitTimeSeconds)}</p>
-          </div>
-          <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Service Level</p>
-            <p class="text-2xl font-bold mt-1" data-kpi="serviceLevelPercent">{snapshot.kpi.serviceLevelPercent}%</p>
-          </div>
-          <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Calls in Queue</p>
-            <p class="text-2xl font-bold mt-1" data-kpi="callsInQueue">{snapshot.kpi.callsInQueue}</p>
-          </div>
-          <div class="bg-surface rounded-xl border border-border p-4">
-            <p class="text-xs font-medium text-text-secondary uppercase tracking-wide">Abandon Rate</p>
-            <p class="text-2xl font-bold mt-1" data-kpi="abandonRatePercent">{snapshot.kpi.abandonRatePercent}%</p>
-          </div>
-        </div>
-      </section>
-
-      <section aria-label="Agent Status" class="bg-surface rounded-xl border border-border">
-        <div class="px-5 py-4 border-b border-border flex items-center justify-between">
-          <h2 class="text-base font-semibold">Agent Status</h2>
-          <span id="page-indicator" class="text-sm text-text-secondary">
-            Page 1 of {totalPages}
-          </span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm" aria-label="Agent status table">
-            <thead>
-              <tr class="border-b border-border text-left text-text-secondary">
-                <th class="px-5 py-3 font-medium">Agent</th>
-                <th class="px-5 py-3 font-medium">Status</th>
-                <th class="px-5 py-3 font-medium text-right">Calls Today</th>
-                <th class="px-5 py-3 font-medium text-right">Avg Handle Time</th>
-              </tr>
-            </thead>
-            <tbody id="agent-tbody">
-              {initialAgents.map((agent) => (
-                <tr class="border-b border-border last:border-b-0 hover:bg-surface-alt transition-colors" data-agent-id={agent.id}>
-                  <td class="px-5 py-3 font-medium">{agent.name}</td>
-                  <td class="px-5 py-3">
-                    <span class="inline-flex items-center gap-2">
-                      <Fragment set:html={statusDotSvg(agent.status)} />
-                      {statusLabels[agent.status]}
-                    </span>
-                  </td>
-                  <td class="px-5 py-3 text-right tabular-nums">{agent.callsToday}</td>
-                  <td class="px-5 py-3 text-right tabular-nums">{formatTime(agent.handleTimeSeconds)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div class="px-5 py-3 border-t border-border flex items-center justify-between text-sm text-text-secondary">
-          <span id="agent-count">{snapshot.agents.length} agents total</span>
-          <div class="flex gap-1" id="page-dots">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                class={`w-2 h-2 rounded-full transition-colors ${i === 0 ? "bg-accent" : "bg-border"}`}
-                data-page={i}
-                aria-label={`Go to page ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+    <main class="max-w-7xl mx-auto px-6 py-6">
+      <svg
+        id="dashboard-svg"
+        viewBox={`0 0 ${LAYOUT.width} ${LAYOUT.height}`}
+        width="100%"
+        preserveAspectRatio="xMidYMin meet"
+        role="img"
+        aria-label="Call center dashboard showing KPI metrics and agent status"
+        style="font-family: inherit;"
+      >
+        <title>Call Center Dashboard</title>
+        <desc>Real-time call center metrics and agent status table</desc>
+        <Fragment set:html={svgContent} />
+      </svg>
     </main>
 
     <script type="application/json" id="initial-data" set:html={JSON.stringify(snapshot)} />

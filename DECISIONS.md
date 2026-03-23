@@ -6,3 +6,4 @@
 - 2026-03-23 — Zod schemas as single source of truth for data shapes. TypeScript types inferred from schemas.
 - 2026-03-23 — SVG status indicators as pure string functions, shared between server render and client DOM updates.
 - 2026-03-23 — Server-rendered initial state to avoid empty-dashboard flash on first load.
+- 2026-03-23 — Full SVG dashboard rendering. KPI cards and agent table rendered as SVG elements inside a single `<svg>` with `viewBox="0 0 1200 720"`. Header stays HTML (application chrome). SVG scales responsively via `preserveAspectRatio="xMidYMin meet"`. Colors reference CSS custom properties since SVG is inline. Flash animation uses `fill` instead of `background-color`.
